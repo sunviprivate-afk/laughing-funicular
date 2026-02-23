@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AquaFlow Estates | Sustainable Fish Farming</title>
+    <title>AquaFlow Estates | Mobile Responsive Fish Farm</title>
     <style>
         /* --- CSS STYLES --- */
         :root {
@@ -18,7 +18,7 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
         }
 
         body {
@@ -27,12 +27,12 @@
             background-color: #ffffff;
         }
 
-        /* Navigation */
+        /* Responsive Navigation */
         nav {
             background: var(--primary);
             padding: 1rem 5%;
             display: flex;
-            justify-content: space-between;
+            flex-direction: column; /* Stack logo and nav on very small screens */
             align-items: center;
             position: sticky;
             top: 0;
@@ -42,46 +42,44 @@
 
         nav .logo {
             color: white;
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             font-weight: bold;
             text-transform: uppercase;
             letter-spacing: 2px;
+            margin-bottom: 10px;
         }
 
         nav ul {
             display: flex;
             list-style: none;
+            gap: 15px;
         }
-
-        nav ul li { margin-left: 20px; }
 
         nav ul li a {
             color: white;
             text-decoration: none;
+            font-size: 0.9rem;
             font-weight: 500;
-            transition: color 0.3s;
         }
 
-        nav ul li a:hover { color: var(--accent); }
-
-        /* Hero Section */
+        /* Hero Section - Adjusted for Mobile Height */
         .hero {
             background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
                         url('https://images.unsplash.com/photo-1524704654690-b56c05c78a00?auto=format&fit=crop&w=1350&q=80');
             background-size: cover;
             background-position: center;
-            height: 80vh;
+            min-height: 60vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             text-align: center;
             color: white;
-            padding: 0 20px;
+            padding: 40px 20px;
         }
 
-        .hero h1 { font-size: 3.5rem; margin-bottom: 1rem; }
-        .hero p { font-size: 1.2rem; max-width: 700px; margin-bottom: 2rem; }
+        .hero h1 { font-size: 2.2rem; margin-bottom: 1rem; line-height: 1.2; }
+        .hero p { font-size: 1rem; max-width: 600px; margin-bottom: 2rem; }
 
         .btn {
             background: var(--accent);
@@ -90,54 +88,59 @@
             text-decoration: none;
             border-radius: 5px;
             font-weight: bold;
-            transition: transform 0.2s;
+            display: inline-block;
         }
 
-        .btn:hover { transform: scale(1.05); }
-
-        /* Sections */
-        section { padding: 80px 10%; }
+        /* Section Spacing */
+        section { padding: 60px 5%; }
 
         .section-title {
             text-align: center;
-            margin-bottom: 50px;
+            margin-bottom: 40px;
         }
 
-        .section-title h2 { font-size: 2.5rem; color: var(--primary); }
+        .section-title h2 { font-size: 1.8rem; color: var(--primary); }
         .section-title div { 
-            width: 80px; height: 4px; background: var(--accent); margin: 10px auto; 
+            width: 60px; height: 3px; background: var(--accent); margin: 10px auto; 
         }
 
-        /* Features/Grid */
+        /* Grid - Stacks automatically on mobile */
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            grid-template-columns: 1fr;
+            gap: 20px;
         }
 
         .card {
             background: var(--light);
-            padding: 30px;
+            padding: 25px;
             border-radius: 10px;
-            border-bottom: 5px solid var(--secondary);
-            transition: 0.3s;
+            border-left: 5px solid var(--secondary);
         }
 
-        .card:hover { transform: translateY(-10px); }
+        .card h3 { color: var(--primary); margin-bottom: 10px; font-size: 1.3rem; }
 
-        .card h3 { color: var(--primary); margin-bottom: 15px; }
+        /* Species Table - Mobile Scroll Fix */
+        .table-container {
+            width: 100%;
+            overflow-x: auto; /* Allows side-scrolling on small screens */
+            -webkit-overflow-scrolling: touch;
+            margin-top: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
 
-        /* Fish Species Table */
         .species-table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 20px;
+            min-width: 500px; /* Ensures table doesn't squish too much */
         }
 
         .species-table th, .species-table td {
-            padding: 15px;
-            border: 1px solid #ddd;
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
             text-align: left;
+            font-size: 0.9rem;
         }
 
         .species-table th { background: var(--secondary); color: white; }
@@ -146,116 +149,127 @@
         footer {
             background: var(--dark);
             color: white;
-            padding: 50px 10%;
+            padding: 40px 5%;
             text-align: center;
+            font-size: 0.9rem;
         }
 
-        .footer-links { margin: 20px 0; }
-        .footer-links a { color: #ccc; margin: 0 10px; text-decoration: none; }
+        .footer-links { margin: 15px 0; }
+        .footer-links a { color: #ccc; margin: 0 8px; text-decoration: none; }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 2.5rem; }
-            nav ul { display: none; } /* Simplified for demo */
+        /* Desktop Adjustments */
+        @media (min-width: 768px) {
+            nav { flex-direction: row; justify-content: space-between; padding: 1rem 8%; }
+            nav .logo { margin-bottom: 0; font-size: 1.5rem; }
+            nav ul { gap: 25px; }
+            .hero h1 { font-size: 3.5rem; }
+            .hero p { font-size: 1.2rem; }
+            .grid { grid-template-columns: repeat(3, 1fr); gap: 30px; }
+            .section-title h2 { font-size: 2.5rem; }
+            section { padding: 80px 10%; }
         }
     </style>
 </head>
 <body>
 
     <nav>
-        <div class="logo">AquaFlow Estates</div>
+        <div class="logo">AquaFlow</div>
         <ul>
             <li><a href="#about">About</a></li>
             <li><a href="#species">Species</a></li>
-            <li><a href="#process">Our Process</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
     </nav>
 
     <header class="hero">
-        <h1>Freshness From Source to Table</h1>
-        <p>Leading the way in sustainable aquaculture. We utilize advanced recirculating systems to provide the highest quality fresh-water fish while protecting our natural ecosystems.</p>
-        <a href="#contact" class="btn">Inquire for Wholesale</a>
+        <h1>Sustainable Fish Farming</h1>
+        <p>Providing the highest quality fresh-water fish while protecting our natural ecosystems through advanced water recycling.</p>
+        <a href="#contact" class="btn">Inquire Now</a>
     </header>
 
     <section id="about">
         <div class="section-title">
-            <h2>Why Choose Our Farm?</h2>
+            <h2>Our Advantage</h2>
             <div></div>
         </div>
         <div class="grid">
             <div class="card">
                 <h3>Eco-Friendly</h3>
-                <p>We use 90% less water than traditional pond farming through our proprietary filtration and recycling technology.</p>
+                <p>We use 90% less water than traditional farming through advanced filtration.</p>
             </div>
             <div class="card">
-                <h3>Zero Antibiotics</h3>
-                <p>Our fish are raised in a controlled environment, ensuring they are free from growth hormones and harmful chemicals.</p>
+                <h3>Organic Feed</h3>
+                <p>Our fish are raised on premium, nutrient-rich diets without any harmful hormones.</p>
             </div>
             <div class="card">
-                <h3>Traceability</h3>
-                <p>Every batch is logged. We can tell you exactly when your fish was harvested and what it was fed.</p>
+                <h3>Fresh Daily</h3>
+                <p>Harvested and delivered within 24 hours to ensure peak flavor and quality.</p>
             </div>
         </div>
     </section>
 
-    <section id="species" style="background-color: #f0f4f8;">
+    <section style="background-color: #f0f4f8; text-align: center;">
         <div class="section-title">
-            <h2>Our Premium Species</h2>
-            <div></div>
+            <h2>Our Technology</h2>
+            <p>How we keep our water clean and our fish healthy.</p>
         </div>
-        <table class="species-table">
-            <thead>
-                <tr>
-                    <th>Species</th>
-                    <th>Average Weight</th>
-                    <th>Availability</th>
-                    <th>Best For</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><strong>Atlantic Tilapia</strong></td>
-                    <td>1.5 - 2.0 lbs</td>
-                    <td>Year-Round</td>
-                    <td>Grilling & Tacos</td>
-                </tr>
-                <tr>
-                    <td><strong>Rainbow Trout</strong></td>
-                    <td>2.0 - 4.0 lbs</td>
-                    <td>Seasonal (Oct-Mar)</td>
-                    <td>Fine Dining / Pan Searing</td>
-                </tr>
-                <tr>
-                    <td><strong>Channel Catfish</strong></td>
-                    <td>3.0 - 6.0 lbs</td>
-                    <td>Year-Round</td>
-                    <td>Frying & Stews</td>
-                </tr>
-            </tbody>
-        </table>
+        
     </section>
 
-    <section id="contact">
+    <section id="species">
         <div class="section-title">
-            <h2>Get In Touch</h2>
+            <h2>Our Fish</h2>
             <div></div>
         </div>
-        <div style="max-width: 600px; margin: 0 auto; text-align: center;">
-            <p>Are you a restaurant owner or a local distributor? Contact our sales team for pricing and delivery schedules.</p>
-            <br>
-            <p><strong>Email:</strong> sales@aquaflowestates.com</p>
+        
+        <p style="text-align: center; font-size: 0.85rem; color: #666; margin-bottom: 10px;">(Swipe left/right to view full table)</p>
+        <div class="table-container">
+            <table class="species-table">
+                <thead>
+                    <tr>
+                        <th>Species</th>
+                        <th>Avg Weight</th>
+                        <th>Availability</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Atlantic Tilapia</strong></td>
+                        <td>1.5 - 2.0 lbs</td>
+                        <td>Year-Round</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Rainbow Trout</strong></td>
+                        <td>2.0 - 4.0 lbs</td>
+                        <td>Seasonal</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Channel Catfish</strong></td>
+                        <td>3.0 - 6.0 lbs</td>
+                        <td>Year-Round</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section id="contact" style="background-color: var(--light);">
+        <div class="section-title">
+            <h2>Contact Us</h2>
+            <div></div>
+        </div>
+        <div style="max-width: 500px; margin: 0 auto; text-align: center;">
+            <p><strong>Email:</strong> sales@aquaflow.com</p>
             <p><strong>Phone:</strong> +1 (555) 123-4567</p>
-            <p><strong>Location:</strong> 1222 Clearwater Lane, Blue Creek, OR</p>
+            <p><strong>Location:</strong> Blue Creek, OR</p>
         </div>
     </section>
 
     <footer>
-        <p>&copy; 2026 AquaFlow Estates Fish Farm. All rights reserved.</p>
+        <p>&copy; 2026 AquaFlow Estates Fish Farm.</p>
         <div class="footer-links">
-            <a href="#">Privacy Policy</a> | 
-            <a href="#">Terms of Service</a> | 
-            <a href="#">Sustainability Report</a>
+            <a href="#">Privacy</a> | 
+            <a href="#">Terms</a>
         </div>
     </footer>
 
